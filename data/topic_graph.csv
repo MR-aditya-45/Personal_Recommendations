@@ -1,0 +1,27 @@
+topic,relation,related_topic
+Logistic Regression,prerequisite,Linear Regression
+Decision Trees,prerequisite,Logistic Regression
+Random Forest,prerequisite,Decision Trees
+SVM,prerequisite,Linear Regression
+KNN,prerequisite,Linear Regression
+Naive Bayes,prerequisite,Logistic Regression
+Gradient Boosting,prerequisite,Decision Trees
+Neural Networks,prerequisite,Logistic Regression
+CNN,prerequisite,Neural Networks
+RNN,prerequisite,Neural Networks
+RNN,prerequisite,Neural Networks
+LSTM,prerequisite,RNN
+Transformer,prerequisite,Neural Networks
+XGBoost,prerequisite,Gradient Boosting
+LightGBM,prerequisite,Gradient Boosting
+CatBoost,prerequisite,Gradient Boosting
+Logistic Regression,related,Decision Trees
+Decissin Trees,related,Random Forest
+
+
+
+
+
+
+
+

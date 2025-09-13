@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Study Planning</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  body { 
+    background-color: #121212; 
+    color: #ffffff; 
+    font-family: 'Segoe UI', sans-serif; 
+  }
+
+  .card { 
+    background-color: #1e1e1e; 
+    border-radius: 16px; 
+    border: none; 
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6); 
+    padding: 30px; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.8);
+  }
+
+  h2 { 
+    font-size: 2.2rem; 
+    margin-bottom: 30px; 
+    text-align: center; 
+    color: #ffd700;
+  }
+
+  label, .form-check-label { 
+    font-size: 1.1rem; 
+    color: #e0e0e0; 
+  }
+
+  input, .form-control { 
+    font-size: 1rem; 
+    background-color: #2c2c2c; 
+    color: #ffffff; 
+    border: 1px solid #444;
+  }
+
+  .form-check-input {
+    cursor: pointer;
+  }
+
+  .btn-primary { 
+    background-color: #2979ff; 
+    border: none; 
+    font-size: 1.1rem; 
+    padding: 12px; 
+    transition: 0.3s; 
+  }
+  .btn-primary:hover { 
+    background-color: #5393ff; 
+  }
+
+  .btn-download { 
+    background-color: #4caf50; 
+    border: none; 
+    font-size: 1.1rem; 
+    padding: 12px; 
+    transition: 0.3s; 
+    margin-top: 10px;
+  }
+  .btn-download:hover { 
+    background-color: #66bb6a; 
+  }
+
+  .list-group-item { 
+    font-size: 1.1rem; 
+    padding: 14px; 
+    background-color: #1e1e1e !important; 
+    color: #ffffff !important; 
+    border: 1px solid #333;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    transition: 0.3s;
+  }
+  .list-group-item:hover {
+    background-color: #2e2e2e;
+    transform: translateY(-2px);
+  }
+
+  .list-group-item strong {
+    color: #ffd700; /* Highlight topic in gold */
+  }
+
+  /* Scrollable topic checkbox list */
+  .topics-container {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-bottom: 20px;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 576px) {
+    h2 { font-size: 1.8rem; }
+    .btn-primary, .btn-download { font-size: 1rem; padding: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="container mt-5">
+  <h2>📅 Study Planning for Student {{ student_id }}</h2>
+
+  <!-- Study Planning Form -->
+  <form method="POST" class="card mb-4">
+    <div class="mb-3">
+      <label for="start_date" class="form-label">Start Date</label>
+      <input type="date" class="form-control form-control-lg" name="start_date" id="start_date" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="hours" class="form-label">Hours per Day</label>
+      <input type="number" class="form-control form-control-lg" name="hours" id="hours" required min="1" max="12">
+    </div>
+
+    <div class="mb-3">
+      <label for="days" class="form-label">Days Available</label>
+      <input type="number" class="form-control form-control-lg" name="days" id="days" required min="1" max="30">
+    </div>
+
+    <div class="mb-3 topics-container">
+      <label class="form-label">Select Topics</label><br>
+      {% for rec in recommendations %}
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" name="topics" value="{{ rec['topic'] }}" id="topic_{{ loop.index }}">
+          <label class="form-check-label" for="topic_{{ loop.index }}">{{ rec['topic'] }}</label>
+        </div>
+      {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Generate Study Plan</button>
+  </form>
+
+  <!-- Display Generated Plan -->
+  {% if plan %}
+    <div class="card mb-3">
+      <h4 class="mb-3">Generated Study Plan</h4>
+      <ul class="list-group list-group-flush">
+        {% for p in plan %}
+          <li class="list-group-item">
+            {{ p.date }} → <strong>{{ p.topic }}</strong> ({{ p.hours }} hrs)
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Download ICS Button -->
+    <a href="{{ url_for('download_plan', student_id=student_id) }}" class="btn btn-download w-100">
+      📥 Download ICS Calendar
+    </a>
+  {% endif %}
+</div>
+</body>
+</html>

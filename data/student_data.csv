@@ -1,0 +1,6 @@
+student_id,completed_topics
+101,Linear Regression;Logistic Regression;Decision Trees
+102,Linear Regression;KNN
+103,Linear Regression;Logistic Regression;SVM
+104,Decision Trees;Random Forest
+105,Linear Regression;Logistic Regression;Decision Trees;Random Forest;SVM

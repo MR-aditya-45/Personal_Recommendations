@@ -1,0 +1,16 @@
+student_id,topic,confidence
+101,Linear Regression,85
+101,Logistic Regression,70
+102,Linear Regression,90
+103,Linear Regression,80
+103,Logistic Regression,75
+103,SVM,60
+104,Decision Trees,50
+104,Random Forest,58
+102,KNN,75
+105,Linear Regression,67
+105,Logistic Regression,52
+105,Decision Trees,83
+105,Random Forest,52
+105,SVM,81
+101,Decision Trees,98

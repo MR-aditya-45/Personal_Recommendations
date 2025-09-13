@@ -1,0 +1,14 @@
+topic,youtube_link,documentation_link
+Linear Regression,https://youtu.be/nk2CQITm_eo,https://scikit-learn.org/stable/modules/linear_model.html
+Logistic Regression,https://youtu.be/yIYKR4sgzI8,https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+Decision Trees,https://youtu.be/eKD5gxPPeY0,https://scikit-learn.org/stable/modules/tree.html
+Random Forest,https://youtu.be/J4Wdy0Wc_xQ,https://scikit-learn.org/stable/modules/ensemble.html#random-forests
+SVM,https://youtu.be/efR1C6CvhmE,https://scikit-learn.org/stable/modules/svm.html
+KNN,https://youtu.be/HVXime0nQeI,https://scikit-learn.org/stable/modules/neighbors.html
+Naive Bayes,https://youtu.be/CPqOCI0ahss,https://scikit-learn.org/stable/modules/naive_bayes.html
+Gradient Boosting,https://youtu.be/3CC4N4z3GJc,https://scikit-learn.org/stable/modules/ensemble.html#gradient-boosting
+Neural Networks,https://youtu.be/aircAruvnKk,https://scikit-learn.org/stable/modules/neural_networks_supervised.html
+CNN,https://youtu.be/YRhxdVk_sIs,https://cs231n.github.io/convolutional-networks/
+RNN,https://youtu.be/AsNTP8Kwu80,https://colah.github.io/posts/2015-08-Understanding-LSTMs/
+LSTM,https://youtu.be/8HyCNIVRbSU,https://colah.github.io/posts/2015-08-Understanding-LSTMs/
+Transformer,https://youtu.be/4Bdc55j80l8,https://arxiv.org/abs/1706.03762
