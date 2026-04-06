@@ -1,0 +1,12 @@
+{
+  "name": "personal_recommendations",
+  "version": "1.0.0",
+  "description": "A **web-based intelligent system** that provides **personalized topic recommendations** and **study plans** for students based on their learning history and confidence levels. Students can filter topics by proficiency, create structured day-wise study plans, and download them as `.ICS` calendar files for integration with **Google Calendar** or **Outlook**.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

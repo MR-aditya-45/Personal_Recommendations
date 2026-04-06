@@ -9,11 +9,14 @@ from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.secret_key = "your_secret_key"  # required for sessions
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app.secret_key = os.environ.get("SECRET_KEY", "fallback_secret")
 
 # ---------------- Database Setup ----------------
 def init_db():
-    conn = sqlite3.connect("users.db")
+    conn = sqlite3.connect(os.path.join(BASE_DIR, "users.db"), timeout=10)
     cursor = conn.cursor()
     cursor.execute('''CREATE TABLE IF NOT EXISTS users (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -27,7 +30,7 @@ init_db()
 
 # ---------------- User Helpers ----------------
 def get_user(username):
-    conn = sqlite3.connect("users.db")
+    conn = sqlite3.connect(os.path.join(BASE_DIR, "users.db"), timeout=10)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM users WHERE username=?", (username,))
     user = cursor.fetchone()
@@ -35,7 +38,7 @@ def get_user(username):
     return user
 
 def create_user(username, password):
-    conn = sqlite3.connect("users.db")
+    conn = sqlite3.connect(os.path.join(BASE_DIR, "users.db"), timeout=10)  
     cursor = conn.cursor()
     try:
         cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)",
@@ -91,15 +94,17 @@ def login_required(func):
 
 # ---------------- Recommender Setup ----------------
 rec = Recommender(
-    topic_graph_path="data/topic_graph.csv",
-    student_data_path="data/student_data.csv",
-    history_path="data/history.csv",
-    resources_path="data/resources.csv"
+    
+
+topic_graph_path=os.path.join(BASE_DIR, "data/topic_graph.csv"),
+     student_data_path=os.path.join(BASE_DIR, "data/student_data.csv"),
+    history_path=os.path.join(BASE_DIR, "data/history.csv"),
+    resources_path=os.path.join(BASE_DIR, "data/resources.csv")
 )
 
 # ---------------- Adaptive Helper Functions ----------------
 try:
-    _topic_graph_df = pd.read_csv("data/topic_graph.csv")
+    _topic_graph_df = pd.read_csv(os.path.join(BASE_DIR, "data/topic_graph.csv"))
 except Exception:
     _topic_graph_df = pd.DataFrame(columns=["topic", "relation", "related_topic"])
 
@@ -140,7 +145,7 @@ def _get_resources(topic: str):
         df = rec.resources
     except Exception:
         try:
-            df = pd.read_csv("data/resources.csv")
+            df =pd.read_csv(os.path.join(BASE_DIR, "data/resources.csv"))
         except Exception:
             df = pd.DataFrame()
 
@@ -411,7 +416,7 @@ def planning(student_id):
 @login_required
 def download_plan(student_id):
     try:
-        plan = pd.read_csv("data/study_plan.csv").to_dict(orient='records')
+        plan = pd.read_csv(os.path.join(BASE_DIR, "data/study_plan.csv")).to_dict(orient='records')
     except FileNotFoundError:
         return "No study plan generated yet. Please create one first."
 
@@ -435,4 +440,4 @@ def download_plan(student_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True,port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
